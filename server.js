@@ -1,3 +1,4 @@
+// Dependencies
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
@@ -10,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 // Routes
-require("./routes/htmlRoutes.js")(app);
+require("./routes/htmlRoutes")(app, path);
 
 app.use(logger("dev"));
 
