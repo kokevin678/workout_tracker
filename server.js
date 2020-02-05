@@ -6,12 +6,13 @@ const path = require("path");
 
 const PORT = process.env.PORT || 3000;
 
-// const db = require("./models");
+const db = require("./models");
 
 const app = express();
 
 // Routes
 require("./routes/htmlRoutes")(app, path);
+require("./routes/apiRoutes");
 
 app.use(logger("dev"));
 
@@ -22,35 +23,26 @@ app.use(express.json());
 // set static root directory
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/populatedb", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useNewUrlParser: true
 });
 
-// db.User.create({ name: "Ernest Hemingway" })
-//   .then(dbUser => {
-//     console.log(dbUser);
-//   })
-//   .catch(({ message }) => {
-//     console.log(message);
-//   });
+db.Workout.create({ name: "exercises" })
+  .then(dbWorkout => {
+    console.log(dbWorkout);
+  })
+  .catch(({ message }) => {
+    console.log(message);
+  });
 
-// app.get("/notes", (req, res) => {
-//   db.Note.find({})
-//     .then(dbNote => {
-//       res.json(dbNote);
+// app.post("/submit", function(req, res) {
+//   Workout.create({})
+//     .then(function(result) {
+//       res.json(result);
+//       console.log(result);
 //     })
-//     .catch(err => {
-//       res.json(err);
-//     });
-// });
-
-// app.get("/user", (req, res) => {
-//   db.User.find({})
-//     .then(dbUser => {
-//       res.json(dbUser);
-//     })
-//     .catch(err => {
-//       res.json(err);
+//     .catch(function(error) {
+//       console.log(error);
 //     });
 // });
 

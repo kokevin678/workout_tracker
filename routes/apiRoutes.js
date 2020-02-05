@@ -1,36 +1,75 @@
-const Workout = require("../models/workout.js");
+const db = require("../models");
+const router = require("express").Router();
 
-module.export = function(app) {
-  app.get("/api/workouts", function(req, res) {
-    Workout.findAll({})
-      .then(function(result) {
-        res.json(result);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  });
+// GET
+router.get("/api/workouts", (req, res) => {
+  db.Workout.find({})
+    .populate("exercises")
+    .then(dbWorkout => {
+      res.json(dbWorkout);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
+router.get("/api/workouts/range", (req, res) => {
+  db.Workout.find({})
+    .populate("exercises")
+    .then(dbWorkout => {
+      res.json(dbWorkout);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
 
-  app.post("/api/workouts", function(req, res) {
-    Workout.create({})
-      .then(function(result) {
-        res.json(result);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  });
+module.exports = router;
 
-  //   app.put("/api/workouts/:id", function({req}, res) {
-  //     Workout.create({})
-  //       .then(function(result) {
-  //         res.json(result);
-  //       })
-  //       .catch(function(error) {
-  //         console.log(error);
-  //       });
-  //   });
-};
+// function(exercise) {
+//   app.get("/api/workouts", function(req, res) {
+//     console.log(res);
+//     db.Workouts.find({})
+//       .then(function(result) {
+//         console.log(result);
+//         res.json(result);
+//       })
+//       .catch(function(error) {
+//         console.log(error);
+//       });
+//   });
+
+// app.post("/api/workouts/:id", function({ body }, res) {
+//   Workout.create({ body });
+//     .then(function(result) {
+//       res.json(result);
+//       console.log(result);
+//     })
+//     .catch(function(error) {
+//       console.log(error);
+//     });
+// });
+
+// app.post("/api/workouts", function({ body }, res) {
+//   Workout.insert({ body })
+//     .then(function(result) {
+//       res.json(result);
+//       console.log(result);
+//     })
+//     .catch(function(error) {
+//       console.log(error);
+//     });
+// });
+
+// app.put("/api/workouts/:id", function(req, res) {
+//   db.Workout.findByIdAndUpdate(params.id)
+//     .then(function(result) {
+//       res.send(result);
+//     })
+//     .catch(function(error) {
+//       console.log(error);
+//     });
+// });
+// };
 
 // db.User.create({ name: "Ernest Hemingway" })
 //   .then(dbUser => {
