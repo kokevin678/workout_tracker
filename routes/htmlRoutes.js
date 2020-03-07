@@ -1,6 +1,6 @@
 var path = require("path");
 
-module.exports = function(app, path) {
+module.exports = function(app) {
   // send default page to all routes that are undefined
   app.get("/exercise", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/exercise.html"));
